@@ -1,0 +1,18 @@
+{
+	"name": "assert js",
+	"description": "simple assertion library to ensure pre conditions, post conditions and invariants are adhered to.",
+	"keywords": [
+		"assert", "assertion", "type safety", "precondition", "postcondition",
+		"invariants", "design-by-contract"
+	],
+
+	"version": "0.0.1",
+
+	"homepage": "https://github.com/reiner-dolp/assert-js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/reiner-dolp/assert-js.git"
+	},
+	"main": "./assert.js",
+	"license": "MIT"
+}
