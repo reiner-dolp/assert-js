@@ -1,13 +1,7 @@
 __A very simple assertion library to ensure pre conditions, post conditions and
-invariants are adhered to.__
-
----
-
-Note that this is not a package for _[node.js](https://nodejs.org/api/assert.html)_. _node.js_
-has its own [assertion package](https://nodejs.org/api/assert.html).
-
----
-
+invariants are adhered to.__ Note that this is a browser package and not a
+package for _node.js_. _node.js_ has its
+own [assertion package](https://nodejs.org/api/assert.html).
 
 ## API
 
@@ -15,7 +9,7 @@ All assertion methods take the variable to test as first argument, and an
 optional error message as second argument:
 
 ```js
-function assert(condition, msg)
+assert(condition, msg)
 assert.is_int(val, msg)
 assert.is_undefined(val, msg)
 assert.is_func(val, msg)
@@ -23,6 +17,7 @@ assert.is_numeric(val, msg)
 assert.is_array(val, msg)
 assert.is_string(val, msg)
 assert.is_object(val, msg)
+
 assert.is_ctor (self, selfname)
 assert.not_reached(msg)
 ```
@@ -38,7 +33,7 @@ assert.not_reached(msg)
  * Note that the constructor can be used as copy constructor:
  *
  * ```js
- * new ImgRegion(new ImageRegion({ /* ... */ }));
+ * new ImgRegion(new ImageRegion({ ... }));
  * ```
  *
  * @param {int} opts.width   the width of the image region
@@ -72,6 +67,6 @@ function ImgRegion(opts) {
 
 ## Using an EventEmitter
 
-If you include an EventEmitter package (e.g. [1] [2] [3]) first, you can call
+If you include an EventEmitter package (e.g. [EventEmitter3](https://github.com/primus/eventemitter3)) first, you can call
 `assert.eventEmitter.addListener("assertion failure", myLoggerFunc)`, where
 `myLoggerFunc` is one of your functions. 
