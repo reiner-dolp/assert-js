@@ -2,8 +2,10 @@ __A very simple assertion library to ensure pre conditions, post conditions and
 invariants are adhered to.__
 
 ---
+
 Note that this is not a package for _[node.js](https://nodejs.org/api/assert.html)_. _node.js_
 has its own [assertion package](https://nodejs.org/api/assert.html).
+
 ---
 
 
@@ -23,14 +25,6 @@ assert.is_string(val, msg)
 assert.is_object(val, msg)
 assert.is_ctor (self, selfname)
 assert.not_reached(msg)
-```
-
-```js
-function is_int(val) { "use strict";
-function is_array(val) { "use strict";
-function is_func(val) { "use strict";
-function is_typed_array(val) { "use strict";
-function is_string(val) { "use strict";
 ```
 
 ## Example Usage
