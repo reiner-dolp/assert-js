@@ -1,5 +1,5 @@
 {
-	"name": "assert js",
+	"name": "assert-js",
 	"description": "simple assertion library to ensure pre conditions, post conditions and invariants are adhered to.",
 	"keywords": [
 		"assert", "assertion", "type safety", "precondition", "postcondition",
