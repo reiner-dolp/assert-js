@@ -1,29 +1,3 @@
-/* # Assertions and Typing
- *
- * ## Datatype Testing
- *
- * All type-testing-methods take single variable to test as argument.
- *
- * - is_int
- * - is_array
- * - is_func
- * - is_typed_array
- * - is_string
- *
- * ## Overview Assertion Methods
- *
- * All assertion methods take the variable to test as first argument, and an optional
- * error message as second argument:
- *
- * - assert
- * - assert.not_reached
- * - assert.is_ctor
- * - assert.is_int
- * - assert.is_numeric
- * - assert.is_array
- * - assert.is_object
- * - assert.is_string
- */
 function assert(condition, msg) { "use strict";
 
 	if (!condition) {
@@ -123,5 +97,6 @@ assert.is_object = function(val, msg) { "use strict";
 };
 
 assert.is_ctor = function (self, selfname) { "use strict";
-	assert(self instanceof selfname, "function <" + selfname + "> has to be called as constructor");
+	var msg_shortname = selfname.length > 120 ? selfname.substring(0, 120 - 3) + "..." : selfname;
+	assert(self instanceof selfname, "function <" + msg_shortname + "> has to be called as constructor");
 };
