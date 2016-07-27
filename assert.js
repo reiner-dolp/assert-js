@@ -97,6 +97,6 @@ assert.is_object = function(val, msg) { "use strict";
 };
 
 assert.is_ctor = function (self, selfname) { "use strict";
-	var msg_shortname = selfname.toString().length > 120 ? selfname.substring(0, 120 - 3) + "..." : selfname;
+	var msg_shortname = selfname.toString().length > 120 ? selfname.toString().substring(0, 120 - 3) + "..." : selfname;
 	assert(self instanceof selfname, "function <" + msg_shortname + "> has to be called as constructor");
 };
