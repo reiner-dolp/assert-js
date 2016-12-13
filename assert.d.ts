@@ -1,6 +1,6 @@
 interface assert {
     (value :boolean, msg? :string) :void;
-    is_int(value :number, range :[number,number], msg? :string) :void;
+    is_int(value :number, range? :[number,number], msg? :string) :void;
     is_true(value :boolean, msg? :string) :void;
     is_undefined(val :any, msg? :string) :void;
     is_func(val :any, msg? :string) :void;
