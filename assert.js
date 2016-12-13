@@ -62,6 +62,10 @@ assert.is_int = function(val, msg) { "use strict";
 	assert(is_int(val), msg || "expected variable to be an integer");
 };
 
+assert.is_true = function(val, msg) { "use strict";
+	assert(val, msg);
+};
+
 assert.is_undefined = function(val, msg) { "use strict";
 	assert(typeof val === "undefined", msg || "expected variable to be undefined");
 };
@@ -97,6 +101,7 @@ assert.is_object = function(val, msg) { "use strict";
 };
 
 assert.is_ctor = function (self, selfname) { "use strict";
-	var msg_shortname = selfname.toString().length > 120 ? selfname.toString().substring(0, 120 - 3) + "..." : selfname;
+	var name = selfname.toString();
+	var msg_shortname = name.length > 120 ?  name.substring(0, 120 - 3) + "..." : name;
 	assert(self instanceof selfname, "function <" + msg_shortname + "> has to be called as constructor");
 };
