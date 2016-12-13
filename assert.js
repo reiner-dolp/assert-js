@@ -58,8 +58,18 @@ assert.not_reached = function(msg) { "use strict";
 	assert(false, msg || "reached code that is asserted to never be reached");
 };
 
-assert.is_int = function(val, msg) { "use strict";
+assert.is_int = function(val, range, msg) { "use strict";
+	if(is_string(range)) {
+		msg = range;
+		range = undefined;
+	}
+
 	assert(is_int(val), msg || "expected variable to be an integer");
+
+	if(range) {
+		assert(val >= range[0], msg || "expected integer <" + val + "> to be greater than or equal to <" + range[0] + ">");
+		assert(val <= range[1], msg || "expected integer <" + val + "> to be less than or equal to <" + range[1] + ">");
+	}
 };
 
 assert.is_true = function(val, msg) { "use strict";
