@@ -1,117 +1,96 @@
-function assert(condition, msg) { "use strict";
+var IN_DEVELOPMENT_ONLY = function(fn) {
+	if(this.ASSERT) {
+		fn();
+	} else {
+		console.warn('Call to <IN_DEVELOPMENT_ONLY> in production build. ' +
+			     'Did you forget to compile some files?');
+	}
+};
 
-	if (!condition) {
-		msg = msg || "";
+IN_DEVELOPMENT_ONLY((function (global) { global.ASSERT = true; return function() { "use strict";
 
-		assert.is_string(msg, "second argument to assert must be a string");
+	global.ASSERT = function assert(condition, msg) { 
+		if (!condition) {
+			msg = msg || "";
 
-		msg = "[ASSERTION FAILED] " + msg;
+			assert.is_string(msg, "second argument to assert must be a string");
 
-		var error;
+			msg = "[ASSERTION FAILED] " + msg;
 
-		if (typeof Error !== "undefined") {
-			error = new Error(msg);
+			var error;
+
+			if (typeof Error !== "undefined") {
+				error = new Error(msg);
+			}
+
+			if(assert.eventEmitter) {
+				assert.eventEmitter.emit("assertion failure", error || msg);
+			}
+
+			throw error || msg;
 		}
+	};
 
-		if(assert.eventEmitter) {
-			assert.eventEmitter.emit("assertion failure", error || msg);
-		}
+	global.IS_INT = function is_int(val) { 
+		return ~~val === val;
+	};
 
-		throw error || msg;
-	}
-}
+	global.IS_POSITIVE_INT = function is_positive_int(val) { 
+		return ~~val === val && val > 0;
+	};
 
-if(typeof EventEmitter !== "undefined") {
-	assert.eventEmitter = new EventEmitter();
-}
+	global.IS_NON_NEGATIVE_INT = function is_non_negative_int(val) { 
+		return ~~val === val && val >= 0;
+	};
 
-function is_int(val) { "use strict";
-	return ~~val === val;
-}
-function is_array(val) { "use strict";
-	return Object.prototype.toString.call(val) === '[object Array]';
-}
+	global.IS_ARRAY = function is_array(val) { 
+		return Object.prototype.toString.call(val) === '[object Array]';
+	};
 
-function is_func(val) { "use strict";
-	return val && val.constructor && val.call && val.apply;
-}
+	global.IS_FUNC = function is_func(val) { 
+		return val && val.constructor && val.call && val.apply;
+	};
 
-function is_typed_array(val) { "use strict";
-	return val instanceof Int8Array ||
-	       val instanceof Uint8Array ||
-	       val instanceof Int8Array ||
-	       val instanceof Uint8Array ||
-	       val instanceof Uint8ClampedArray ||
-	       val instanceof Int16Array ||
-	       val instanceof Uint16Array ||
-	       val instanceof Int32Array ||
-	       val instanceof Uint32Array ||
-	       val instanceof Float32Array ||
-	       val instanceof Float64Array;
-}
-
-function is_string(val) { "use strict";
-	return typeof val === "string" || val instanceof String;
-}
-
-assert.not_reached = function(msg) { "use strict";
-	assert(false, msg || "reached code that is asserted to never be reached");
-};
-
-assert.is_int = function(val, range, msg) { "use strict";
-	if(is_string(range)) {
-		msg = range;
-		range = undefined;
+	global.IS_STRING = function is_string(val) { 
+		return typeof val === "string" || val instanceof String;
 	}
 
-	assert(is_int(val), msg || "expected variable to be an integer");
+	global.ASSERT_NOT_REACHED = function assert_not_reached() { 
+		ASSERT(false, "reached code that is asserted to never be reached");
+	};
 
-	if(range) {
-		assert(val >= range[0], msg || "expected integer <" + val + "> to be greater than or equal to <" + range[0] + ">");
-		assert(val <= range[1], msg || "expected integer <" + val + "> to be less than or equal to <" + range[1] + ">");
+	global.IS_UNDEF = function(val) { 
+		return val === void 0 || val === null;
+	};
+
+	global.IS_NUM = function(val) { 
+		return typeof val === "number";
+	};
+
+	global.IS_TYPED_ARRAY = function(val) { 
+		return val instanceof Int8Array ||
+		       val instanceof Uint8Array ||
+		       val instanceof Int8Array ||
+		       val instanceof Uint8Array ||
+		       val instanceof Uint8ClampedArray ||
+		       val instanceof Int16Array ||
+		       val instanceof Uint16Array ||
+		       val instanceof Int32Array ||
+		       val instanceof Uint32Array ||
+		       val instanceof Float32Array ||
+		       val instanceof Float64Array;
+	};
+
+	global.IS_OBJECT = function(val, msg) { 
+		return val !== null && typeof val === 'object';
+	};
+
+	global.IS_CTOR = function (self, selfname) { 
+		return self instanceof selfname;
+	};
+
+	if(typeof EventEmitter !== "undefined") {
+		assert.eventEmitter = new EventEmitter();
 	}
-};
+};})(this))
 
-assert.is_true = function(val, msg) { "use strict";
-	assert(val, msg);
-};
-
-assert.is_undefined = function(val, msg) { "use strict";
-	assert(typeof val === "undefined", msg || "expected variable to be undefined");
-};
-
-assert.is_func = function(val, msg) { "use strict";
-	assert(is_func(val), msg || "expected variable to be a function");
-};
-
-assert.is_function = assert.is_func;
-
-assert.is_numeric = function(val, msg) { "use strict";
-	// more permissive with strings etc:
-	//!isNaN(parseFloat(n)) && isFinite(n);
-	assert(typeof val === "number", msg || "expected number, got " + typeof val);
-};
-
-assert.is_num = assert.is_numeric;
-
-assert.is_array = function(val, msg) { "use strict";
-	assert(is_array(val) || is_typed_array(val), msg || "expected variable to be of type array");
-};
-
-assert.is_arr = assert.is_array;
-
-assert.is_string = function(val, msg) { "use strict";
-	assert(typeof val === 'string', msg || "expected variable to be of type string. Got " + typeof val + "instead.");
-};
-
-assert.is_str = assert.is_string;
-
-assert.is_object = function(val, msg) { "use strict";
-	assert(val !== null && typeof val === 'object', msg || "expected variable to be of type object");
-};
-
-assert.is_ctor = function (self, selfname) { "use strict";
-	var name = selfname.toString();
-	var msg_shortname = name.length > 120 ?  name.substring(0, 120 - 3) + "..." : name;
-	assert(self instanceof selfname, "function <" + msg_shortname + "> has to be called as constructor");
-};
