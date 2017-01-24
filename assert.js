@@ -48,7 +48,7 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 	};
 
 	global.ASSERT_IS_POSITIVE_INT = function assert_is_positive_int(v, msg) {
-		ASSERT(is_non_positive_int(v), msg || "Expected a positive integer, got <" + typeof v + "> instead");
+		ASSERT(is_positive_int(v), msg || "Expected a positive integer, got <" + typeof v + "> instead");
 	};
 
 	global.ASSERT_IS_ARRAY = function assert_is_array(v, msg) {
