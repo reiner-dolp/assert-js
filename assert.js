@@ -126,12 +126,26 @@ function is_typed_array(val) {
 	       val instanceof Float64Array;
 }
 
-function is_object(val, msg) { 
+function is_obj(val, msg) { 
 	return val !== null && typeof val === 'object';
 }
 
 function is_ctor(self, selfname) { 
 	return self instanceof selfname;
+}
+
+if(typeof EXPOSE_BOOLEAN_FUNCTIONS === "undefined") {
+	global.is_int = is_int;
+	global.is_non_negative_int = is_non_negative_int;
+	global.is_positive_int = is_positive_int;
+	global.is_array = is_array;
+	global.is_func = is_func;
+	global.is_string = is_string;
+	global.is_undef = is_undef;
+	global.is_obj = is_obj;
+	global.is_num = is_num;
+	global.is_ctor = is_ctor;
+	global.is_typed_array = is_typed_array;
 }
 
 })(this))
