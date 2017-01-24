@@ -1,21 +1,26 @@
-interface assert {
-    (value :boolean, msg? :string) :void;
-    is_int(value :number, range? :[number,number], msg? :string) :void;
-    is_true(value :boolean, msg? :string) :void;
-    is_undefined(val :any, msg? :string) :void;
-    is_func(val :any, msg? :string) :void;
-    is_numeric(val :any, msg? :string) :void;
-    is_num(val :any, msg? :string) :void;
-    is_array(val :any, msg? :string) :void;
-    is_string(val :any, msg? :string) :void;
-    is_str(val :any, msg? :string) :void;
-    is_object(val :any, msg? :string) :void;
-    is_ctor(self :any, selfname) :void;
-    not_reached(msg? :string) :void;
-}
+export function IN_DEVELOPMENT_ONLY(fn :() => void): void;
 
-//declare module "assert" {
-//    export = assert;
-//}
+export function ASSERT(cond :any, msg? :string): void;
+export function ASSERT_NOT_REACHED(): void;
+export function ASSERT_IS_INT(v :any, msg? :string): void;
+export function ASSERT_IS_NON_NEGATIVE_INT(v :any, msg? :string): void;
+export function ASSERT_IS_POSITIVE_INT(v :any, msg? :string): void;
+export function ASSERT_IS_ARRAY(v :any, msg? :string): void;
+export function ASSERT_IS_FUNC(v :any, msg? :string): void;
+export function ASSERT_IS_STRING(v :any, msg? :string): void;
+export function ASSERT_IS_UNDEF(v :any, msg? :string): void;
+export function ASSERT_IS_OBJ(v :any, msg? :string): void;
+export function ASSERT_IS_NUM(v :any, msg? :string): void;
+export function ASSERT_IS_CTOR(v :any, msg? :string): void;
 
-declare const assert :assert;
+export function is_int(v :any): boolean;
+export function is_non_negative_int(v :any): boolean;
+export function is_positive_int(v :any): boolean;
+export function is_array(v :any): boolean;
+export function is_func(v :any): boolean;
+export function is_string(v :any): boolean;
+export function is_undef(v :any): boolean;
+export function is_obj(v :any): boolean;
+export function is_num(v :any): boolean;
+export function is_ctor(v :any): boolean;
+export function is_typed_array(v :any): boolean;
