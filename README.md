@@ -3,14 +3,13 @@ invariants are correct.__ Supports automatic removal of assertion calls
 from production builds. 
 
 ---
-
 <p align=center><strong>Table of Contents</strong></p>
 
 1. [API Overview](#api)
 2. [Usage Example](#usage-example)
-2. [Usage Example in Typescript](#usage-examples)
-3. [Zero Runtime Overhead Using the C Preprocessor](#changelog)
-3. [Usage with an Event Emitter](#using-an-eventemitter)
+2. [Usage Example in Typescript](#usage-example-in-typescript)
+3. [Automatic Assertion Removal](#automatic-assertion-removal)
+3. [Usage with an Event Emitter](#usage-with-an-eventemitter)
 
 ---
 
@@ -54,7 +53,7 @@ They should be used in most cases, as they provide better default error messages
 Uppercase function calls will be stripped from the source code if you compile the code with
 a C preprocessor. Lowercase function calls are not stripped.
 
-## Example Usage
+## Usage Example
 
 ```js
 /**
@@ -97,7 +96,7 @@ function ImgRegion(opts) {
 Note that semicolons are optional in javascript. The code above is valid
 javascript without a compilation step.
 
-## Example Usage in Typescript
+## Usage Example in Typescript
 
 ```js
 /// <reference types="assert-js"/>
@@ -149,7 +148,7 @@ export class ImgRegion {
 }
 ```
 
-#Zero Runtime Overhead Using the C Preprocessor
+#Automatic Assertion Removal
 
 You can automatically remove all assertion calls from your source code using
 the [C preprocessor](https://en.wikipedia.org/wiki/C_preprocessor). To do this
@@ -202,7 +201,7 @@ var IN_DEVELOPMENT_ONLY = function(fn) {
 This snippet will be removed by your minifier in production environments,
 as all calls should have been removed by the preprocessor.
 
-## Using an EventEmitter
+## Using With an EventEmitter
 
 If you include an EventEmitter package (e.g.
 [EventEmitter3](https://github.com/primus/eventemitter3)) first, you can call
