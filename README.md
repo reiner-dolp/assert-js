@@ -201,7 +201,7 @@ var IN_DEVELOPMENT_ONLY = function(fn) {
 This snippet will be removed by your minifier in production environments,
 as all calls should have been removed by the preprocessor.
 
-## Using With an EventEmitter
+## Usage With an EventEmitter
 
 If you include an EventEmitter package (e.g.
 [EventEmitter3](https://github.com/primus/eventemitter3)) first, you can call
