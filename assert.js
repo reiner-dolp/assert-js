@@ -75,8 +75,8 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 		ASSERT(is_num(v), msg || "Expected a number, got <" + typeof v + "> instead");
 	};
 
-	global.ASSERT_IS_CTOR = function assert_is_ctor(v, msg) {
-		ASSERT(is_ctor(v), msg || "Constructor called without `new` or wrong binding of this.");
+	global.ASSERT_IS_CTOR = function assert_is_ctor(a, b, msg) {
+		ASSERT(is_ctor(a,b), msg || "Constructor called without `new` or wrong binding of this.");
 	};
 };})());
 
