@@ -14,8 +14,6 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 		if (!condition) {
 			msg = msg || "";
 
-			assert.is_string(msg, "second argument to assert must be a string");
-
 			msg = "[ASSERTION FAILED] " + msg;
 
 			var error;
@@ -111,7 +109,7 @@ function is_undef(val) {
 }
 
 function is_num(val) { 
-	return typeof val === "number";
+	return typeof val === "number" && val < Infinity && val > -Infinity;
 }
 
 function is_typed_array(val) { 
