@@ -7,8 +7,9 @@ var IN_DEVELOPMENT_ONLY = function(fn) {
 	}
 };
 
-IN_DEVELOPMENT_ONLY((function (global) { global.ASSERT = true; return function() { "use strict";
+((function (global) { "use strict";
 
+IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 	global.ASSERT = function assert(condition, msg) { 
 		if (!condition) {
 			msg = msg || "";
@@ -31,66 +32,109 @@ IN_DEVELOPMENT_ONLY((function (global) { global.ASSERT = true; return function()
 		}
 	};
 
-	global.IS_INT = function is_int(val) { 
-		return ~~val === val;
-	};
-
-	global.IS_POSITIVE_INT = function is_positive_int(val) { 
-		return ~~val === val && val > 0;
-	};
-
-	global.IS_NON_NEGATIVE_INT = function is_non_negative_int(val) { 
-		return ~~val === val && val >= 0;
-	};
-
-	global.IS_ARRAY = function is_array(val) { 
-		return Object.prototype.toString.call(val) === '[object Array]';
-	};
-
-	global.IS_FUNC = function is_func(val) { 
-		return val && val.constructor && val.call && val.apply;
-	};
-
-	global.IS_STRING = function is_string(val) { 
-		return typeof val === "string" || val instanceof String;
+	if(typeof EventEmitter !== "undefined") {
+		ASSERT.eventEmitter = new EventEmitter();
 	}
 
 	global.ASSERT_NOT_REACHED = function assert_not_reached() { 
-		ASSERT(false, "reached code that is asserted to never be reached");
+		ASSERT(false, "in state asserted not to be reached");
 	};
 
-	global.IS_UNDEF = function(val) { 
-		return val === void 0 || val === null;
+
+	global.ASSERT_IS_INT = function assert_is_int(v, msg) {
+		ASSERT(is_int(v), msg || "Expected an integer, got <" + typeof v + "> instead");
 	};
 
-	global.IS_NUM = function(val) { 
-		return typeof val === "number";
+	global.ASSERT_IS_NON_NEGATIVE_INT = function assert_is_non_negative_int(v, msg) {
+		ASSERT(is_non_negative_int(v), msg || "Expected a non negative integer, got <" + typeof v + "> instead");
 	};
 
-	global.IS_TYPED_ARRAY = function(val) { 
-		return val instanceof Int8Array ||
-		       val instanceof Uint8Array ||
-		       val instanceof Int8Array ||
-		       val instanceof Uint8Array ||
-		       val instanceof Uint8ClampedArray ||
-		       val instanceof Int16Array ||
-		       val instanceof Uint16Array ||
-		       val instanceof Int32Array ||
-		       val instanceof Uint32Array ||
-		       val instanceof Float32Array ||
-		       val instanceof Float64Array;
+	global.ASSERT_IS_POSITIVE_INT = function assert_is_positive_int(v, msg) {
+		ASSERT(is_non_positive_int(v), msg || "Expected a positive integer, got <" + typeof v + "> instead");
 	};
 
-	global.IS_OBJECT = function(val, msg) { 
-		return val !== null && typeof val === 'object';
+	global.ASSERT_IS_ARRAY = function assert_is_array(v, msg) {
+		ASSERT(is_array(v), msg || "Expected an array, got <" + typeof v + "> instead");
 	};
 
-	global.IS_CTOR = function (self, selfname) { 
-		return self instanceof selfname;
+	global.ASSERT_IS_FUNC = function assert_is_func(v, msg) {
+		ASSERT(is_func(v), msg || "Expected a function, got <" + typeof v + "> instead");
 	};
 
-	if(typeof EventEmitter !== "undefined") {
-		assert.eventEmitter = new EventEmitter();
-	}
-};})(this))
+	global.ASSERT_IS_STRING = function assert_is_string(v, msg) {
+		ASSERT(is_string(v), msg || "Expected a string, got <" + typeof v + "> instead");
+	};
+
+	global.ASSERT_IS_UNDEF = function assert_is_undef(v, msg) {
+		ASSERT(is_undef(v), msg || "Expected undefined or null, got <" + typeof v + "> instead");
+	};
+
+	global.ASSERT_IS_OBJ = function assert_is_obj(v, msg) {
+		ASSERT(is_obj(v), msg || "Expected an object, got <" + (v === null ? "null" : typeof v) + "> instead");
+	};
+
+	global.ASSERT_IS_NUM = function assert_is_num(v, msg) {
+		ASSERT(is_num(v), msg || "Expected a number, got <" + typeof v + "> instead");
+	};
+
+	global.ASSERT_IS_CTOR = function assert_is_ctor(v, msg) {
+		ASSERT(is_ctor(v), msg || "Constructor called without `new` or wrong binding of this.");
+	};
+};})());
+
+function is_int(val) { 
+	return ~~val === val;
+}
+
+function is_positive_int(val) { 
+	return ~~val === val && val > 0;
+}
+
+function is_non_negative_int(val) { 
+	return ~~val === val && val >= 0;
+}
+
+function is_array(val) { 
+	return Object.prototype.toString.call(val) === '[object Array]';
+}
+
+function is_func(val) { 
+	return val && val.constructor && val.call && val.apply;
+}
+
+function is_string(val) { 
+	return typeof val === "string" || val instanceof String;
+}
+
+function is_undef(val) { 
+	return val === void 0 || val === null;
+}
+
+function is_num(val) { 
+	return typeof val === "number";
+}
+
+function is_typed_array(val) { 
+	return val instanceof Int8Array ||
+	       val instanceof Uint8Array ||
+	       val instanceof Int8Array ||
+	       val instanceof Uint8Array ||
+	       val instanceof Uint8ClampedArray ||
+	       val instanceof Int16Array ||
+	       val instanceof Uint16Array ||
+	       val instanceof Int32Array ||
+	       val instanceof Uint32Array ||
+	       val instanceof Float32Array ||
+	       val instanceof Float64Array;
+}
+
+function is_object(val, msg) { 
+	return val !== null && typeof val === 'object';
+}
+
+function is_ctor(self, selfname) { 
+	return self instanceof selfname;
+}
+
+})(this))
 
