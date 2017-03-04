@@ -7,9 +7,11 @@ from production builds.
 
 1. [API Overview](#api)
 2. [Usage Example](#usage-example)
-2. [Usage Example in Typescript](#usage-example-in-typescript)
-3. [Automatic Assertion Removal](#automatic-assertion-removal)
-3. [Usage with an Event Emitter](#usage-with-an-eventemitter)
+3. [Usage Example in Typescript](#usage-example-in-typescript)
+4. [Usage Example in Typescript using ES6 Modules](#usage-example-in-typescript-using-es6-modules)
+5. [Usage Example with Webpack](#usage-example-with-webpack)
+6. [Automatic Assertion Removal](#automatic-assertion-removal)
+7. [Usage with an Event Emitter](#usage-with-an-eventemitter)
 
 ---
 
@@ -148,6 +150,33 @@ export class ImgRegion {
         this.offsetY = opts.offsetY;
     }
 }
+```
+## Usage Example in Typescript using ES6 Modules
+
+```js
+import {ASSERT} from 'assert-js/es6';
+ASSERT("something");
+```
+
+## Usage Example with Webpack
+
+As Webpack supports the ES6 module syntax, you can use the import-from-syntax
+shown above. You can get rid of the `/es6` suffix, by adding an alias to
+your `webpack.config.js`:
+
+```js
+/* ... */
+resolve: {
+	alias: {
+		"assert-js": "assert-js/es6.js"
+	}
+},
+/* ... */
+```
+
+```js
+import {ASSERT} from 'assert-js';
+ASSERT("something");
 ```
 
 #Automatic Assertion Removal
