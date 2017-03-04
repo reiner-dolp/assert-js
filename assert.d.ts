@@ -3,6 +3,7 @@ export function IN_DEVELOPMENT_ONLY(fn :() => void): void;
 export function ASSERT(cond :any, msg? :string): void;
 export function ASSERT_NOT_REACHED(): void;
 export function ASSERT_IS_INT(v :any, msg? :string): void;
+export function ASSERT_IS_INT_IN_RANGE(v :any, range :[number,number], msg? :string): void;
 export function ASSERT_IS_NON_NEGATIVE_INT(v :any, msg? :string): void;
 export function ASSERT_IS_POSITIVE_INT(v :any, msg? :string): void;
 export function ASSERT_IS_ARRAY(v :any, msg? :string): void;
@@ -14,6 +15,7 @@ export function ASSERT_IS_NUM(v :any, msg? :string): void;
 export function ASSERT_IS_CTOR(a :any, b :any, msg? :string): void;
 
 export function is_int(v :any): boolean;
+export function is_int_in_range(v :any, range :[number,number]): boolean;
 export function is_non_negative_int(v :any): boolean;
 export function is_positive_int(v :any): boolean;
 export function is_array(v :any): boolean;
