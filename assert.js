@@ -43,6 +43,11 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 		ASSERT(is_int(v), msg || "Expected an integer, got <" + typeof v + "> instead");
 	};
 
+	global.ASSERT_IS_INT_IN_RANGE = function assert_is_int(v, range, msg) {
+		ASSERT(is_int_in_range(v, range), msg || "Expected an integer in ["+range[0]+","+range[1]+"),"
+		       + "got <" + (~~v===v ? v : typeof v) + "> instead");
+	};
+
 	global.ASSERT_IS_NON_NEGATIVE_INT = function assert_is_non_negative_int(v, msg) {
 		ASSERT(is_non_negative_int(v), msg || "Expected a non negative integer, got <" + typeof v + "> instead");
 	};
@@ -82,6 +87,10 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 
 function is_int(val) { 
 	return ~~val === val;
+}
+
+function is_int_in_range(val, range) { 
+	return ~~val === val && val >= range[0] && val < range[1];
 }
 
 function is_positive_int(val) { 

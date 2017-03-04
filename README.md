@@ -25,6 +25,7 @@ from production builds.
 |--------------------|-------------|
 | `is_num(v)` | true if the given value is a finite number. therefore `is_num(infinity)`, `is_num(nan)` and `is_num("1")` are `false`. `is_num(-1)`, `is_num(1)` and `is_num(42.42)` are `true`. |
 | `is_int(v)` | like `is_num`, but only `true` for integers. |
+| `is_int_in_range(v, range)` | like `is_num`, but restricted to the range `[a, b]`. |
 | `is_non_negative_int(v)` | `true` for integers greater than or equal to zero. |
 | `is_positive_int(v)` | `true` for integers greater than zero. |
 | `is_array(v)` | `true` for arrays. `false` for typed arrays. |
@@ -37,18 +38,19 @@ from production builds.
 There are shorthand notations that are equivalent to calling a boolean function and asserting its return value.
 They should be used in most cases, as they provide better default error messages:
 
-| Function Signature | Description |
+| Function Signature | Call Target |
 |--------------------|-------------|
-| `ASSERT_IS_INT(v [, msg])` | `true` for integers. |
-| `ASSERT_IS_NON_NEGATIVE_INT(v [, msg])` | `true` for integers greater than or equal to zero. |
-| `ASSERT_IS_POSITIVE_INT(v [, msg])` | `true` for integers greater than zero. |
-| `ASSERT_IS_ARRAY(v [, msg])` | `true` for arrays. `false` for typed arrays. |
-| `ASSERT_IS_FUNC(v [, msg])` | returns `true` if the given argument is a function. |
-| `ASSERT_IS_STRING(v [, msg])` | returns to `true` for strings and string objects. |
-| `ASSERT_IS_UNDEF(v [, msg])` | evaluates to `true` for `null` and `undefined`. |
-| `ASSERT_IS_OBJ(v [, msg])` | evaluates to `true` for values that are not `null` or `undefined`. |
-| `ASSERT_IS_NUM(v) [, msg]` | true if the given value is a finite number. Therefore `IS_NUM(Infinity)`, `IS_NUM(NaN)` and `IS_NUM("1")` are `false`. `IS_NUM(-1)`, `IS_NUM(1)` and `IS_NUM(42.42)` are `true`. |
-| `ASSERT_IS_CTOR(this, classref [, msg])` | `true` if the function was called with `new`, `false` if it was omitted. |
+| `ASSERT_IS_INT(v [, msg])` | is_int |
+| `ASSERT_IS_INT_IN_RANGE(v, range, [, msg])` | is_int_in_range |
+| `ASSERT_IS_NON_NEGATIVE_INT(v [, msg])` | is_non_negative_int |
+| `ASSERT_IS_POSITIVE_INT(v [, msg])` | is_positive_int |
+| `ASSERT_IS_ARRAY(v [, msg])` | is_array |
+| `ASSERT_IS_FUNC(v [, msg])` | is_func |
+| `ASSERT_IS_STRING(v [, msg])` | is_string |
+| `ASSERT_IS_UNDEF(v [, msg])` | is_undef |
+| `ASSERT_IS_OBJ(v [, msg])` | is_obj |
+| `ASSERT_IS_NUM(v) [, msg]` | is_num |
+| `ASSERT_IS_CTOR(this, classref [, msg])` | is_ctor |
 
 Uppercase function calls will be stripped from the source code if you compile the code with
 a C preprocessor. Lowercase function calls are not stripped.
