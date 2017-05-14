@@ -23,7 +23,7 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 			}
 
 			if(assert.eventEmitter) {
-				assert.eventEmitter.emit("assertion failure", error || msg);
+				assert.eventEmitter.emit("assertionFailure", error || msg);
 			}
 
 			throw error || msg;
@@ -44,8 +44,8 @@ IN_DEVELOPMENT_ONLY((function() { global.ASSERT = true; return function() {
 	};
 
 	global.ASSERT_IS_INT_IN_RANGE = function assert_is_int(v, range, msg) {
-		ASSERT(is_int_in_range(v, range), msg || "Expected an integer in ["+range[0]+","+range[1]+"),"
-		       + "got <" + (~~v===v ? v : typeof v) + "> instead");
+		ASSERT(is_int_in_range(v, range), msg || "Expected an integer in ["+range[0]+","+range[1]+")," +
+				"got <" + (~~v===v ? v : typeof v) + "> instead");
 	};
 
 	global.ASSERT_IS_NON_NEGATIVE_INT = function assert_is_non_negative_int(v, msg) {
@@ -157,5 +157,5 @@ if(typeof EXPOSE_BOOLEAN_FUNCTIONS === "undefined") {
 	global.is_typed_array = is_typed_array;
 }
 
-})(this))
+})(this));
 

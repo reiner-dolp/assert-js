@@ -12,8 +12,8 @@ export function ASSERT(condition, msg) {
 			error = new Error(msg);
 		}
 
-		if(assert.eventEmitter) {
-			assert.eventEmitter.emit("assertion failure", error || msg);
+		if(ASSERT.eventEmitter) {
+			ASSERT.eventEmitter.emit("assertionFailure", error || msg);
 		}
 
 		throw error || msg;
